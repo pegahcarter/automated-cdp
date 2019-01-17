@@ -1,42 +1,34 @@
 import os
 import sys
-import ccxt
-import time
+import json
 from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 
 ''' January 2017 - December 2018  '''
 
-exchange = ccxt.bittrex()
+# TODO: Update CSV first
+
+TICKER = 'ETH/USDT'
+OLD_FILE = '../data/eth_since_2017.json'
+NEW_FILE = '../data/eth_since_2017_new.json'
+
+COLUMNS = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Market Cap']
+
+# NOTE: does this save as list or numpy array?
+old_data = np.array(pd.read_json(OLD_FILE)).tolist()
 
 
-ticker = 'ETH/USDT'
+new_data = []
 
-start = datetime(2016, 12, 31, 18, 0)
-end = datetime(2016, 12, 31, 18, 0)
-datetime.timestamp(start)
-datetime.timestamp(datetime(2016, 12, 31, 18, 0))
+for row in old_data:
+    new_data.append(dict(zip(COLUMNS, rows)))
 
-datetime.fromtimestamp(1483228800)
-
-len(data)
-
-datetime.fromtimestamp(data[0][0]/ 1000)
-datetime.fromtimestamp(data[499][0]/ 1000)
-
-datetime.fromtimestamp(1541417100)
+# Convert dictionaries to right datatype
+# string to parse date- remember to update CSV
+'%b %d, %Y'
 
 
 
-file = '../data/eth_since_2017.json'
-
-# data = np.array(pd.read_json(file))
-old_data = np.array(pd.read_json(file)).tolist()
-
-columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Market Cap']
-
-new_data = [{}]
-
-for i, row in enumerate(old_data):
-    new[data][a]
+with open(NEW_FILE, 'w') as outfile:
+    json.dump(new_data, outfile)
