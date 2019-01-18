@@ -1,3 +1,8 @@
+'''
+This file converts the messy JSON web scraped from coinmarketcap.com for 2 years
+of ETH price data, and saves the correct data format to CSV and JSON.
+'''
+
 import os
 import sys
 import json
@@ -22,56 +27,7 @@ for col in COLUMNS[1:]:
 
 data.to_csv(NEW_FILE_CSV, index=False)
 
-
-
-
-
-test = [dict(zip(COLUMNS, row)) for row in data.pivot]
-
-
-
-
-
-
-# new_data = [dict(zip(COLUMNS, row)) for row in old_data]
-epochs = [int(datetime.timestamp(datetime.strptime(day, '%b %d, %Y'))) for day in data['Date']]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-json.dumps(my_dictionary, indent=4, sort_keys=True, default=str)
-with open(NEW_FILE, 'w') as outfile:
+# Convert to better JSON file
+new_data = [dict(data[COLUMNS].iloc[day]) for day in range(len(data))]
+with open(NEW_FILE_JSON, 'w') as outfile:
     json.dump(new_data, outfile)
