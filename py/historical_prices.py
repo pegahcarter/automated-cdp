@@ -7,28 +7,71 @@ import pandas as pd
 
 ''' January 2017 - December 2018  '''
 
-# TODO: Update CSV first
-
 TICKER = 'ETH/USDT'
 OLD_FILE = '../data/eth_since_2017.json'
-NEW_FILE = '../data/eth_since_2017_new.json'
-
+NEW_FILE_JSON = '../data/data.json'
+NEW_FILE_CSV = '../data/data.csv'
 COLUMNS = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Market Cap']
 
-# NOTE: does this save as list or numpy array?
-old_data = np.array(pd.read_json(OLD_FILE)).tolist()
+data = pd.read_json(OLD_FILE)
+data.columns = COLUMNS
 
+data['Date'] = [int(datetime.timestamp(datetime.strptime(day, '%b %d, %Y'))) for day in data['Date']]
+for col in COLUMNS[1:]:
+    data[col] = [float(num) for num in data[col]]
 
-new_data = []
-
-for row in old_data:
-    new_data.append(dict(zip(COLUMNS, rows)))
-
-# Convert dictionaries to right datatype
-# string to parse date- remember to update CSV
-'%b %d, %Y'
+data.to_csv(NEW_FILE_CSV, index=False)
 
 
 
+
+
+test = [dict(zip(COLUMNS, row)) for row in data.pivot]
+
+
+
+
+
+
+# new_data = [dict(zip(COLUMNS, row)) for row in old_data]
+epochs = [int(datetime.timestamp(datetime.strptime(day, '%b %d, %Y'))) for day in data['Date']]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+json.dumps(my_dictionary, indent=4, sort_keys=True, default=str)
 with open(NEW_FILE, 'w') as outfile:
     json.dump(new_data, outfile)
