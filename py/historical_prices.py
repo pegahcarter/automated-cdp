@@ -9,8 +9,8 @@ import pandas as pd
 
 TICKER = 'ETH/USDT'
 OLD_FILE = '../data/eth_since_2017.json'
-NEW_FILE_JSON = '../data/data.json'
-NEW_FILE_CSV = '../data/data.csv'
+NEW_FILE_JSON = '../data/prices.json'
+NEW_FILE_CSV = '../data/prices.csv'
 COLUMNS = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Market Cap']
 
 data = pd.read_json(OLD_FILE)
