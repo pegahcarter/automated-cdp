@@ -10,6 +10,10 @@ import numpy as np
 
 FILE = '../data/prices.csv'
 df = pd.read_csv(FILE)
-df.head()
+df['+ Pct'] = (df['High'] - df['Open']) / df['Open']
+df['- Pct'] = (df['Open'] - df['Low']) / df['Open']
+df['+- Pct'] = df['+ Pct'] + df['- Pct']
 
-data['Differences'] = data['High'] - data['Low']
+
+print(df['+- Pct'].std())
+print(df.head())
