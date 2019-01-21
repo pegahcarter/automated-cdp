@@ -28,3 +28,22 @@
 1. min => max
 2. max => min
 3. min => max => min (a & b)
+
+
+---
+
+### Steps to deploy on a contract
+1. open/close/deposit a CDP using ganache-cli
+2. use contract/oracle to fetch current ETH price
+3. deploy test smart contract on mainnet
+4. deploy smart contract for CDP
+  - Criteria
+    - Daily frequency
+    - Withdraw to set liq. price @ 5 standard deviations away from avg. volatility
+    - If price drops and liq. price @ 4 sdevs, lower liq. price @ 5 sdevs
+    - If price raises and liq. price is @ 6 sdevs, raise liq. price @ 5 sdevs
+5. Analysis of risk
+  - risk of hitting our liq. price w/in 24 hours
+  - factoring in liq. fees
+    - Is there an optimal liq. price that includes liq. fees?
+    - If so, what's the performance relative to a CDP w/out factoring liq. fees?
