@@ -4,11 +4,11 @@ import pandas as pd
 from datetime import datetime
 from cdp import CDP
 
+cdp = CDP()
 
-START_AMT = 5000
-prices = pd.read_csv('../data/prices.csv')
-prices.iloc[0]
+daily_price = cdp.prices[4]
 
-eth = START_AMT/prices['Close'][0]
+cdp.value = cdp.calc_value(daily_price)
+cdp.ratio = cdp.value / cdp.generated
 
-cdp.deposit(eth)
+cdp.deposited * daily_price * (2/1.74818)
