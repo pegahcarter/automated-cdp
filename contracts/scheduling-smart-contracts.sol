@@ -9,10 +9,6 @@ contract SchedulerInterface {
 	// @uintArgs[0]	- callGas		- amount of gas sent with the tx
 	// @uintArgs[1]	- callValue		- amount of ether(in wei) to be sent with the tx
 	// @uintArgs[2]	- windowStart	- the first block number the tx will be executable
-
-
-
-
     function scheduleTransaction(address toAddress,
                                  bytes callData,
                                  uint8 windowSize,	//
