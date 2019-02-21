@@ -18,16 +18,12 @@
   - if current ratio increases to 225%
     - generate more DAI to set ratio to 200%
 
-1. Deposit a fixed amt on day 0
-2. Withdraw a fixed amt on day 0
-    - base withdrawal on liquidation ratio
-    - do we need to display liquidation price?
 
 
 ### 2. Time periods for testing
 1. min => max
 2. max => min
-3. min => max => min (a & b)
+3. min => max => min (1. & 2.)
 
 
 ### 3. Calculations

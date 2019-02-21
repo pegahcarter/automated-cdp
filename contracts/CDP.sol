@@ -9,11 +9,8 @@ contract CDP {
     /* MAPPING */
 
 
-
-
     /* EVENTS */
     event logDeposit (uint id);
-
 
 
     /* MODIFIERS */
@@ -21,11 +18,7 @@ contract CDP {
     modifier CDPExists(uint _id) { require( oraclize()     ) }
 
 
-
-
     /* STRUCTS */
-
-
 
 
     /* CONSTRUCTUR */
@@ -34,10 +27,7 @@ contract CDP {
     }
 
 
-
     /* VIEWS */
-
-
 
 
     /* METHODS */
@@ -49,10 +39,5 @@ contract CDP {
         //      as the CDP owner address.
 
     }
-
-
-
-
-
 
 }
