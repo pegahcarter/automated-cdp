@@ -1,7 +1,0 @@
-- After the price is ? standard deviations away from X, we adjust our liquidation price
-- Let's say we always want to stay at least X standard deviations away from price X
-  - % chance within 1 sdev.:    68.2%
-  - % chance within 2 sdev.:    95.45%
-  - % chance within 3 sdev.:    99.73%      - once every 370 days
-  - % chance within 4 sdev.:    99.99994%   - once every 1,666,667 days / 4,566 years
-    - 0.02% chance in one year

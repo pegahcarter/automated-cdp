@@ -35,7 +35,8 @@ class CDP(object):
         self.ratio = self.value / self.generated
         self.liq_price = prices[0] * 0.66
 
-    def refresh(self, )
+    # def refresh(self):
+    #     pass
 
     def calc_ratio(self, eth_price):
         return (eth_price * self.deposited) / self.generated

@@ -4,8 +4,9 @@
 ### Appendix
   1. Plan for strategy
   2. Time periods for testing
-  3. Calculations
-  4. Steps taken to deploy on a smart contract
+  3. Variables of interest
+  4. Standard deviation metrics
+  5. Steps to deploy on a smart contract
 
 
 ### 1. Plan for strategy
@@ -19,32 +20,51 @@
     - generate more DAI to set ratio to 200%
 
 
-
 ### 2. Time periods for testing
 1. min => max
 2. max => min
 3. min => max => min (1. & 2.)
 
 
-### 3. Calculations
+### 3. Variables of interest
 - Liquidation Ratio
   - (eth deposited * current price) / dai generated
 - Liquidation Price
   - (dai generated * 3/2) / eth deposited
+- Time interval for CDP adjustments
+  - static or dynamic?
+    - fixed interval
+      - calculate risk by avg. volatility over the interval
+      - this number should be quantifiable
+    - dynamic interval
+      - all risk could be eliminated
+- Probability of liquidation
+  - Relates to CDP adjustment interval
 
 
-### 4. Steps taken to deploy on a contract
+### 4. Standard deviation metrics
+- After the price is 1 unit of sdev away from X, we adjust our liquidation price
+- Let's say we always want to stay at least X standard deviations away from the price
+  - % chance within 1 sdev.:    68.2%
+  - % chance within 2 sdev.:    95.45%
+  - % chance within 3 sdev.:    99.73%      - once every 370 days
+  - % chance within 4 sdev.:    99.99994%   - once every 1,666,667 days / 4,566 years
+    - 0.02% chance in one year
+
+
+
+### 5. Steps to deploy on a contract
 1. open/close/deposit a CDP using ganache-cli
-2. use contract/oracle to fetch current ETH price
+2. find reliable source to fetch current ETH price
 3. deploy test smart contract on mainnet
 4. deploy smart contract for CDP
   - Criteria
     - Daily frequency
-    - Withdraw to set liq. price @ 5 standard deviations away from avg. volatility
-    - If price drops and liq. price @ 4 sdevs, lower liq. price @ 5 sdevs
-    - If price raises and liq. price is @ 6 sdevs, raise liq. price @ 5 sdevs
+    - Withdraw to set liq. price @ X standard deviations away from avg. volatility
+    - If price drops and liq. price @ X-1 sdevs, lower liq. price @ X sdevs
+    - If price raises and liq. price is @ X + 1 sdevs, raise liq. price @ X sdevs
 5. Analysis of risk
   - risk of hitting our liq. price w/in 24 hours
-  - factoring in liq. fees
-    - Is there an optimal liq. price that includes liq. fees?
+  - factoring in liq. risk and fees
+    - Is there an optimal liq. price calculatino that incorporates liq. fees?
     - If so, what's the performance relative to a CDP w/out factoring liq. fees?
