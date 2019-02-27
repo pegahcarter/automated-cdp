@@ -24,7 +24,7 @@
 ### 2. Time periods for testing
 1. min => max
 2. max => min
-3. min => max => min (1. & 2.)
+3. price consolidation
 
 
 ### 3. Variables of interest
