@@ -3,31 +3,53 @@ import numpy as np
 import pandas as pd
 from position import Position
 
-'''
-1. Open CDP @ $100/ETH
-2. Calculate position @ $200/ETH
-    a. Make sure all CDP attributes are updated w/o any additional actions
-    b. Criteria to trigger a re-lock
-'''
 
-cdp = CDP()
-cdp.price
-cdp.deposited
-cdp.liq_price
+START_AMT = 5000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 # ------------------------------------------------------------------------------
+# OLD: only using this class as a reference to build our CDP class the correct way
 
-prices = pd.read_csv('../data/prices.csv')['Close']
-MAX_RATIO = 1.5
-START_AMT = 5000
-
+MAX_RATIO = 1.5 # This only matters for calculating liquidation price.  It will
+                # come into play when pricing in risk .
+                
 class CDP(object):
-
     def __init__(self):
+        prices = pd.read_csv('../data/prices.csv')['Close']
         self.price = prices[0]
         self.deposited = START_AMT / prices[0]
         self.value = self.deposited * self.price

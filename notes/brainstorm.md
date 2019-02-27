@@ -5,8 +5,9 @@
   1. Plan for strategy
   2. Time periods for testing
   3. Variables of interest
-  4. Standard deviation metrics
-  5. Steps to deploy on a smart contract
+  4. Variables needed for automation
+  5. Standard deviation metrics
+  6. Steps to deploy on a smart contract
 
 
 ### 1. Plan for strategy
@@ -42,7 +43,15 @@
   - Relates to CDP adjustment interval
 
 
-### 4. Standard deviation metrics
+### 4. Stored variables needed for automation
+- ETH locked (updated from CDP actions)
+- DAI minted (updated from CDP actions)
+- Price points to trigger CDP action (updated from CDP actions)
+- Current ETH price (update every price check)
+- Liquidation Ratio (update every price check)
+
+
+### 5. Standard deviation metrics
 - After the price is 1 unit of sdev away from X, we adjust our liquidation price
 - Let's say we always want to stay at least X standard deviations away from the price
   - % chance within 1 sdev.:    68.2%
@@ -53,7 +62,7 @@
 
 
 
-### 5. Steps to deploy on a contract
+### 6. Steps to deploy on a contract
 1. open/close/deposit a CDP using ganache-cli
 2. find reliable source to fetch current ETH price
 3. deploy test smart contract on mainnet
