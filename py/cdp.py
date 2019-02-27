@@ -1,12 +1,26 @@
 import math
 import numpy as np
 import pandas as pd
-from position import Position
-
 
 START_AMT = 5000
 
+class CDP(object):
 
+    self.deposited = ???
+    self.minted = ???
+    self.eth_price = ???
+
+    def __init__(self):
+        pass
+
+    def mint_dai(self):
+        pass
+
+    def deposit_eth(self):
+        pass
+
+    def fetch_eth_price(self):
+        pass
 
 
 
@@ -46,7 +60,7 @@ START_AMT = 5000
 
 MAX_RATIO = 1.5 # This only matters for calculating liquidation price.  It will
                 # come into play when pricing in risk .
-                
+
 class CDP(object):
     def __init__(self):
         prices = pd.read_csv('../data/prices.csv')['Close']

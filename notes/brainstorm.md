@@ -22,9 +22,14 @@
 
 
 ### 2. Time periods for testing
-1. min => max
-2. max => min
-3. price consolidation
+1. Interval
+  - Check price at each row in prices.csv
+  - 1 row = 1 day
+  - Todo: Set interval of price check w/ more robust dataset
+2. Start price of simulation => End price of simulation
+  - min => max
+  - max => min
+  - price does not fluctuate the entire time
 
 
 ### 3. Variables of interest
@@ -35,7 +40,7 @@
 - Time interval for CDP adjustments
   - static or dynamic?
     - fixed interval
-      - calculate risk by avg. volatility over the interval
+          - calculate risk by avg. volatility over the interval
       - this number should be quantifiable
     - dynamic interval
       - all risk could be eliminated
