@@ -1,1 +1,2 @@
-This project is currently on pause for development on [rebalance](https://www.github.com/cartercarlson/rebalance.git)
+This project is still in early stage development.  
+Another work in progress: [rebalance](https://www.github.com/cartercarlson/rebalance.git)
