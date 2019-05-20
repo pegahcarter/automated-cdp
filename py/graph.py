@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('data/cdp_comparison.csv')
+df = pd.read_csv('data/simulations/basic_comparison.csv')
 
 fig, ax = plt.subplots(figsize=(5,5))
 

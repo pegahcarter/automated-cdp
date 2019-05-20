@@ -22,7 +22,7 @@ def main():
         df.append([i, CDP_1, CDP_2])
 
     df = pd.DataFrame(df, columns=['Non-CDP', 'CDP-1', 'CDP-2'])
-    df.to_csv('data/cdp_comparison.csv', index=False)
+    df.to_csv('data/simulations/basic_comparison.csv', index=False)
 
 
 if __name__ == '__main__':
