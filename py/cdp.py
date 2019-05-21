@@ -31,6 +31,11 @@ class CDP:
         self.usd_value = self.price * self.eth_deposited
         self.usd_available_to_generate = self.usd_value / self.MIN_RATIO - self.usd_generated
 
+    def releverage(self, usd, slippage=.02):
+        self.generate_usd(usd)
+        eth_purchased = self.trade_usd_for_eth(usd, self.price*(1 + slippage))
+        self.deposit_eth(eth_purchased)
+
     def deposit_eth(self, eth):
         self.eth_deposited += eth
         self.eth_on_hand -= eth
@@ -47,19 +52,21 @@ class CDP:
         self._update_calculations()
 
     def trade_usd_for_eth(self, usd, price):
-        self.eth_on_hand += usd/price
+        eth_purchased = usd/price
+        self.eth_on_hand += eth_purchased
         self.usd_on_hand -= usd
         self._update_calculations()
+        return eth_purchased
 
     def update_price(self, price):
         self.price = price
         self._update_calculations()
 
-    def close(self, price):
-        # if price is None:
-        #     price = self.price
-        eth_owed = self.usd_generated / price
-        end_eth = self.eth_deposited - eth_owed
-        # pct_change_eth_price = (price - self.start_price) / self.start_price
-        # pct_change_eth_balance = (end_eth - self.start_eth_on_hand) / self.start_eth_on_hand
-        return end_eth
+    # NOTE: this is still saved as close() in loan/personal cdp
+    def summarize(self):
+        self.eth_owed = self.usd_generated / price
+        self.end_eth = self.eth_deposited - eth_owed
+        self.pct_change_eth_price = (price - self.start_price) / self.start_price
+        self.pct_change_eth_balance = (end_eth - self.start_eth_on_hand) / self.start_eth_on_hand
+        df = pd.DataFrame(self.__dict__)
+        df.to_csv('data/simulations/summary.csv')
