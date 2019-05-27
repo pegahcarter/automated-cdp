@@ -1,11 +1,11 @@
-import datetime
-from py.excel import Excel
-
-# TODO: create transactions CSV
+import json
+import pandas as pd
+from datetime import datetime
 
 class CDP:
 
     slippage = .01
+    MIN_RATIO = 3.0/2.0
 
     def __init__(self, price):
         self.start_price = price
@@ -14,17 +14,14 @@ class CDP:
         self.eth_on_hand = 0
         self.eth_deposited = 0
         self.usd_generated = 0
-        self.usd_value = 0
-        self.usd_available_to_generate = 0
-        self.liquidation_price = 0
         self.actions = []
         self.trades = []
 
     def add_action(self, action, quantity, date=None):
         if date is None:
-            date = datetime.datetime.now()
+            date = datetime.now()
         self.actions.append({
-            'date': date,
+            'date': datetime.timestamp(date),
             'action': action,
             'quantity': quantity,
         })
@@ -42,8 +39,9 @@ class CDP:
         self.trade(usd, side='BUY')
         self.deposit(eth_purchased)
 
-    def deposit(self, eth, date=None):
-        self.eth_on_hand -= eth
+    def deposit(self, eth=0, ignore=False, date=None):
+        if ignore is False:
+            self.eth_on_hand -= eth
         self.eth_deposited += eth
         self.add_action(action='deposit', quantity=eth, date=date)
 
@@ -66,7 +64,7 @@ class CDP:
         if price is None:
             price = self.price
         if date is None:
-            date = datetime.datetime.now()
+            date = datetime.now()
         # TODO: do we need a 'side' variable if usd or eth is None?
         if usd is None:
             usd = price*eth * (1.0 - slippage)
@@ -79,7 +77,7 @@ class CDP:
             self.eth_on_hand -= eth
             self.usd_on_hand += usd
         self.trades.append({
-            'date': date,
+            'date': datetime.timestamp(date),
             'side': side,
             'usd': usd,
             'price': price,
@@ -92,14 +90,12 @@ class CDP:
         self._update_calculations()
 
     # NOTE: this is still saved as close() in loan/personal cdp
-    def summarize(self):
+    def summarize(self, price=None):
+        if price is None:
+            price = self.price
         self.eth_owed = self.usd_generated / price
-        self.end_eth = self.eth_deposited - eth_owed
+        self.end_eth = self.eth_deposited - self.eth_owed
         self.pct_change_eth_price = (price - self.start_price) / self.start_price
-        self.pct_change_eth_balance = (end_eth - self.start_eth_on_hand) / self.start_eth_on_hand
-        actions = pd.DataFrame(self.actions)
-        trades = pd.Dataframe(self.trades)
-        summary = pd.DataFrame(self.__dict__)
-        actions.to_csv('data/simulations/actions.csv')
-        trades.to_csv('data/simulations/trades.csv')
-        summary.to_csv('data/simulations/summary.csv')
+        # self.pct_change_eth_balance = (self.end_eth - self.start_eth_on_hand) / self.start_eth_on_hand
+        with open('data/simulations/cdp.json', 'w') as outfile:
+            json.dump(self.__dict__, outfile)

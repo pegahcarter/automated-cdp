@@ -1,0 +1,1 @@
+{"start_price": 100, "price": 100, "usd_on_hand": 0, "eth_on_hand": 0, "eth_deposited": 1, "usd_generated": 0, "actions": [{"date": 1558980482.056687, "action": "deposit", "quantity": 1}], "trades": [], "liquidation_price": 0.0, "usd_value": 100, "usd_available_to_generate": 66.66666666666667, "eth_owed": 0.0, "end_eth": 1.0, "pct_change_eth_price": 0.0}
