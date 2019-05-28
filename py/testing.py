@@ -2,8 +2,8 @@
 from py.cdp import CDP
 
 cdp = CDP(price=100)
-cdp.deposit(eth=1, ignore=True)
+cdp.__dict__
 
-cdp.summarize()
+cdp.releverage(10)
 
-file = pd.read_csv('data/simulations/actions.csv', index_col=0)
+cdp.__dict__
