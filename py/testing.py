@@ -1,9 +1,4 @@
 # File to create initial CSV of CDP and actions
-from py.cdp import CDP
+from web3 import Web3
 
-cdp = CDP(price=100)
-cdp.__dict__
-
-cdp.releverage(10)
-
-cdp.__dict__
+web = Web3(Web3.HTTProvider('https://mainnet.infura.io/v3/40f4c293bc684c89b9bc7f6f3ca01230'))

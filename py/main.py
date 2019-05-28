@@ -5,21 +5,21 @@ def main():
     df = []
     cdp_1 = CDP()
     withdrawal_1 = cdp_1.usd_available_to_generate * 0.5
-    cdp_1.generate_usd(withdrawal_1)
-    cdp_1.deposit_eth(eth=withdrawal_1/cdp_1.price)
+    cdp_1.generate(withdrawal_1)
+    cdp_1.deposit(eth=withdrawal_1/cdp_1.price)
 
     cdp_2 = CDP()
-    cdp_2.generate_usd(withdrawal_1)
-    cdp_2.deposit_eth(eth=withdrawal_1/cdp_2.price)
-    cdp_2.generate_usd(withdrawal_1)
-    cdp_2.deposit_eth(eth=withdrawal_1/cdp_2.price)
+    cdp_2.generate(withdrawal_1)
+    cdp_2.deposit(eth=withdrawal_1/cdp_2.price)
+    cdp_2.generate(withdrawal_1)
+    cdp_2.deposit(eth=withdrawal_1/cdp_2.price)
 
     cdp_3 = CDP()
-    cdp_3.generate_usd(withdrawal_1)
-    cdp_3.deposit_eth(eth=withdrawal_1/cdp_3.price)
+    cdp_3.generate(withdrawal_1)
+    cdp_3.deposit(eth=withdrawal_1/cdp_3.price)
     withdrawal_2 = cdp_3.usd_available_to_generate * .5
-    cdp_3.generate_usd(withdrawal_2)
-    cdp_3.deposit_eth(eth=withdrawal_2/cdp_3.price)
+    cdp_3.generate(withdrawal_2)
+    cdp_3.deposit(eth=withdrawal_2/cdp_3.price)
 
     for i in range(100, 1000):
         CDP_1 = cdp_1.close(price=i) * i

@@ -96,12 +96,15 @@ class CDP:
         self._update_calculations()
 
     # NOTE: this is still saved as close() in loan/personal cdp
-    def summarize(self, price=None):
+    def summarize(self, price=None, save=False):
         if price is None:
             price = self.price
         self.eth_owed = self.usd_generated / price
         self.end_eth = self.eth_deposited - self.eth_owed
         self.pct_change_eth_price = (price - self.start_price) / self.start_price
         # self.pct_change_eth_balance = (self.end_eth - self.start_eth_on_hand) / self.start_eth_on_hand
-        with open(self.filename, 'w') as outfile:
-            json.dump(self.__dict__, outfile)
+        if save is True:
+            with open(self.filename, 'w') as outfile:
+                json.dump(self.__dict__, outfile)
+        else:
+            print(self.__dict__)
