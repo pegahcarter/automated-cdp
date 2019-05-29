@@ -27,3 +27,15 @@ erc20 = web.eth.contract(address='0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359', a
 
 
 'https://etherscan.io/address/0x2D6C469497388239FE4fe4062A89C1EA68e1E84e#contracts'
+
+
+
+# ------------------------------------------------------------------------------
+# Recreating cdp.json with new nested summary object
+from py.cdp import CDP
+
+cdp = CDP(price=300)
+cdp.deposit(eth=5,ignore=True)
+cdp.generate(usd=250)
+cdp.trade(side='BUY',usd=150)
+cdp.summarize(save=True)
