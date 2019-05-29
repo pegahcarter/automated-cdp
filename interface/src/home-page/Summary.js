@@ -1,8 +1,15 @@
 import React from 'react';
 
+import data from './cdp.json';
+
 const Summary = () => {
   return (
-    <div>Summary</div>
+    <div>
+      <pre>
+        {JSON.stringify(data.summary, null, 2)}
+      </pre>
+    </div>
+
   );
 }
 

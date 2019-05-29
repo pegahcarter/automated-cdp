@@ -14,16 +14,16 @@ class CDP:
             for key, val in cdp.items():
                 setattr(self, key, val)
         else:
-            self.price = price
+            self.actions = []
+            self.trades = []
             self.summary = {}
-            self.summary['start_price'] = price
-            self.summary['start_eth_on_hand'] = start_eth_on_hand
             self.summary['eth_on_hand'] = start_eth_on_hand
             self.summary['usd_on_hand'] = 0
             self.summary['eth_deposited'] = 0.01
             self.summary['usd_generated'] = 1
-            self.actions = []
-            self.trades = []
+            self.price = price
+            self.start_price = price
+            self.start_eth_on_hand = start_eth_on_hand
 
     def _add_action(self, action, eth_usd, quantity, date=None):
         if date is None:
@@ -103,8 +103,8 @@ class CDP:
 
         self.summary['eth_owed'] = self.summary['usd_generated'] / self.price
         self.summary['end_eth'] = self.summary['eth_deposited'] - self.summary['eth_owed']
-        self.summary['pct_change_eth_price'] = (self.price - self.summary['start_price']) / self.summary['start_price']
-        # self.pct_change_eth_balance = (self.summary['end_eth'] - self.summary['start_eth_on_hand']) / self.summary['start_eth_on_hand']
+        self.summary['pct_change_eth_price'] = (self.price - self.start_price) / self.start_price
+        # self.pct_change_eth_balance = (self.summary['end_eth'] - self.start_eth_on_hand) / self.start_eth_on_hand
         if save is True:
             with open('cdp.json', 'w') as outfile:
                 json.dump(self.__dict__, outfile)
