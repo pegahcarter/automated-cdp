@@ -29,6 +29,7 @@ class CDP:
         if date is None:
             date = datetime.now()
         self.actions.append({
+            'id': len(self.actions) + 1,
             'date': datetime.timestamp(date),
             'action': action,
             'eth-usd': eth_usd,
@@ -88,6 +89,7 @@ class CDP:
             self.summary['usd_on_hand'] += usd
 
         self.trades.append({
+            'id': len(self.trades) + 1,
             'date': datetime.timestamp(date),
             'side': side,
             'usd': usd,
