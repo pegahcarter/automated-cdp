@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     let { loggedIn } = this.state;
     return (
-      <div>Hello</div>
+      <Homepage />
     )
   }
 

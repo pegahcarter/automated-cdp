@@ -13,3 +13,5 @@ const Homepage = ({ loggedIn }) => {
     </div>
   )
 }
+
+export default Homepage;
