@@ -7,7 +7,7 @@ class CDP:
 
     MIN_RATIO = 3.0/2.0
 
-    def __init__(self, price, start_eth_on_hand=0, preload=False):
+    def __init__(self, price, preload=False, eth_deposited=0.01, usd_generated=1, start_eth_on_hand=0):
         if preload and Path('cdp.json').exists():
             with open(self.filename, 'r') as f:
                 cdp = json.load(f)
@@ -19,8 +19,8 @@ class CDP:
             self.summary = {}
             self.summary['eth_on_hand'] = start_eth_on_hand
             self.summary['usd_on_hand'] = 0
-            self.summary['eth_deposited'] = 0.01
-            self.summary['usd_generated'] = 1
+            self.summary['eth_deposited'] = eth_deposited
+            self.summary['usd_generated'] = usd_generated
             self.price = price
             self.start_price = price
             self.start_eth_on_hand = start_eth_on_hand
