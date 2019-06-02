@@ -1,16 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import CustomTable from './CustomTable';
-
-import data from './cdp.json';
-
+import React from 'react'
 
 const Actions = () => {
   return (
     <div>
       Actions
-      <CustomTable data={data.actions} />
     </div>
   );
 }

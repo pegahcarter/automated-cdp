@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
-import Homepage from './home-page'
+import Homepage from './home-page';
+import cdp from './home-page/cdp.json';
 
 class App extends Component {
 
-  state = {
-    loggedIn: true
-  };
-
   constructor(props) {
     super(props);
+
+    this.state = {
+      actions: cdp.actions,
+      trades: cdp.trades,
+      summary: cdp.summary
+    }
   }
 
   render() {
-    let { loggedIn } = this.state;
     return (
       <Homepage />
     )

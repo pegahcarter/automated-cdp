@@ -29,10 +29,10 @@ const CustomTable = (data) => {
 
   for (var i=0; i=data.length; i++) {
     var row = []
-    keys.map(key => {
+    keys.forEach(function(key, i) {
       row.push(data[i][key])
-    })
-    tableData.push(row)
+    });
+    tableData.push(row);
   }
 
   return (
