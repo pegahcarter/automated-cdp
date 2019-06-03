@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      loggedIn: true,
       actions: cdp.actions,
       trades: cdp.trades,
       summary: cdp.summary
@@ -18,43 +19,8 @@ class App extends Component {
   }
 
   render() {
-    const columns = [
-      {
-        Header: 'Trade ID',
-        accessor: 'id',
-        width: 100
-      },
-      {
-        Header: 'Date',
-        accessor: 'date'
-      },
-      {
-        Header: 'Action',
-        accessor: 'action',
-        sortable: false,
-        width: 125
-      },
-      {
-        Header: 'ETH-USD',
-        accessor: 'eth-usd',
-        sortable: false,
-        width: 100
-      },
-      {
-        Header: 'Quantity',
-        accessor: 'quantity',
-        sortable: false,
-      }
-    ]
     return (
-      // <Homepage />
-      <ReactTable
-        columns={columns}
-        data={this.state.actions}
-        defaultPageSize={5}
-      >
-
-      </ReactTable>
+      <Homepage />
     )
   }
 

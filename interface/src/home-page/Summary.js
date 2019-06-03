@@ -1,15 +1,13 @@
 import React from 'react';
-
 import { JsonToTable } from "react-json-to-table";
-
-import data from './cdp.json';
+import cdp from './cdp.json';
 
 const Summary = () => {
   return (
     <div>
       Summary
       <pre>
-        <JsonToTable json={data['summary']} />
+        <JsonToTable json={cdp.summary} />
       </pre>
     </div>
 
