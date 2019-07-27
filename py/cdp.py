@@ -24,6 +24,7 @@ class CDP:
             self.price = price
             self.start_price = price
             self.start_eth_on_hand = start_eth_on_hand
+        self._update_calculations()
 
     def _add_action(self, action, eth_usd, quantity, date=None):
         if date is None:
@@ -37,11 +38,13 @@ class CDP:
         })
         self._update_calculations()
 
-    def _update_calculations(self):
+    def _update_calculations(self, *args):
         self.summary['liquidation_price'] = self.summary['usd_generated'] * self.MIN_RATIO / self.summary['eth_deposited']
         self.summary['usd_value'] = self.price * self.summary['eth_deposited']
         self.summary['usd_available_to_generate'] = self.summary['usd_value'] / self.MIN_RATIO - self.summary['usd_generated']
         self.summary['eth_available_to_withdraw'] = self.summary['usd_available_to_generate'] / self.price
+        if args:
+            return args
 
     def update_price(self, price):
         self.price = price
@@ -69,7 +72,7 @@ class CDP:
         self.summary['usd_on_hand'] += usd
         self._add_action(action='generate', eth_usd='USD', quantity=usd, date=date)
 
-    def trade(self, side, usd=None, price=None, eth=None, date=None):
+    def trade(self, side, usd=None, eth=None, price=None, date=None):
         if price is None:
             price = self.price
 
@@ -96,7 +99,7 @@ class CDP:
             'price': price,
             'eth': eth
         })
-        self._update_calculations()
+        self._update_calculations(eth)
         # return eth
 
     def summarize(self, price=None, save=False):
