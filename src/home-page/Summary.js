@@ -5,7 +5,6 @@ import cdp from './cdp.json';
 const Summary = () => {
   return (
     <div>
-      Summary
       <pre>
         <JsonToTable json={cdp.summary} />
       </pre>

@@ -111,7 +111,7 @@ class CDP:
         self.summary['pct_change_eth_price'] = (self.price - self.start_price) / self.start_price
         # self.pct_change_eth_balance = (self.summary['end_eth'] - self.start_eth_on_hand) / self.start_eth_on_hand
         if save is True:
-            with open('cdp.json', 'w') as outfile:
+            with open('src/assets/cdp.json', 'w') as outfile:
                 json.dump(self.__dict__, outfile)
 
         return self.summary['end_eth']
