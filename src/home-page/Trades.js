@@ -11,30 +11,28 @@ const Trades = () => {
         data={cdp.trades}
         defaultPageSize={5}
         columns={[{
-          Header: 'Trade ID',
-          accessor: 'id',
-          width: 100
-          },
-          {
-          Header: 'Date',
-          accessor: 'date'
-          },
-          {
-          Header: 'Side',
-          accessor: 'side',
-          width: 100
-          },
-          {
-          Header: 'USD',
-          accessor: 'usd'
-          },
-          {
-          Header: 'Price',
-          accessor: 'price'
-          },
-          {
-          Header: 'ETH',
-          accessor: 'eth'
+          Header: 'Trades',
+          columns: [{
+            Header: 'Trade ID',
+            accessor: 'id',
+            width: 100
+          }, {
+            Header: 'Date',
+            accessor: 'date'
+          }, {
+            Header: 'Side',
+            accessor: 'side',
+            width: 100
+          }, {
+            Header: 'USD',
+            accessor: 'usd'
+          }, {
+            Header: 'Price',
+            accessor: 'price'
+          }, {
+            Header: 'ETH',
+            accessor: 'eth'
+          }]
         }]}
       />
     </div>

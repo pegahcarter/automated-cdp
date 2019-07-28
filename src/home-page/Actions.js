@@ -11,30 +11,29 @@ const Actions = () => {
         data={cdp.actions}
         defaultPageSize={5}
         columns={[{
-          Header: 'Action ID',
-          accessor: 'id',
-          width: 100
-        },
-        {
-          Header: 'Date',
-          accessor: 'date'
-        },
-        {
-          Header: 'Action',
-          accessor: 'action',
-          sortable: false,
-          width: 125
-        },
-        {
-          Header: 'ETH-USD',
-          accessor: 'eth-usd',
-          sortable: false,
-          width: 100
-        },
-        {
-          Header: 'Quantity',
-          accessor: 'quantity',
-          sortable: false,
+          Header: 'Actions',
+          columns: [{
+            Header: 'Action ID',
+            accessor: 'id',
+            width: 100
+          }, {
+            Header: 'Date',
+            accessor: 'date'
+          }, {
+            Header: 'Action',
+            accessor: 'action',
+            sortable: false,
+            width: 125
+          }, {
+            Header: 'ETH-USD',
+            accessor: 'eth-usd',
+            sortable: false,
+            width: 100
+          }, {
+            Header: 'Quantity',
+            accessor: 'quantity',
+            sortable: false
+          }]
         }]}
       />
     </div>
