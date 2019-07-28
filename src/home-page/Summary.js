@@ -1,6 +1,6 @@
 import React from 'react';
 import { JsonToTable } from "react-json-to-table";
-import cdp from './cdp.json';
+import cdp from '../assets/cdp.json';
 
 const Summary = () => {
   return (

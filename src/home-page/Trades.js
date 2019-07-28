@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import cdp from './cdp.json'
+import cdp from '../assets/cdp.json'
 
 const columns = [
   {
@@ -34,7 +34,7 @@ const columns = [
 
 const Trades = () => {
   return (
-    <div>
+    <div style={{ paddingTop: '5%' }}>
       <ReactTable
         columns={columns}
         data={cdp.trades}

@@ -6,7 +6,7 @@ import Trades from './Trades'
 
 const Homepage = ({ loggedIn }) => {
   return (
-    <div>
+    <div style={{ padding: '5%' }}>
       <Summary />
       <Actions />
       <Trades />

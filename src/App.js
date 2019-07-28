@@ -3,7 +3,7 @@ import './App.css';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import Homepage from './home-page';
-import cdp from './home-page/cdp.json';
+import cdp from './assets/cdp.json';
 
 class App extends Component {
 
