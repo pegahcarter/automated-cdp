@@ -1,10 +1,12 @@
-from py.cdp import CDP
+# from py.cdp import CDP
+from cdp import CDP
 import ccxt
 from datetime import datetime, timedelta
 import numpy as np
 
-cdp = CDP(preload=True)
-exchange = ccxt.bitmex()
+# cdp = CDP(preload=True)
+cdp = CDP(price=200, start_eth_on_hand=100)
+
 
 start_eth = cdp['actions'][0]['quantity']
 start_date = datetime.fromtimestamp(cdp['actions'][0]['date'])

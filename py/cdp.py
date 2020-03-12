@@ -18,6 +18,7 @@ class CDP:
             self.actions = []
             self.trades = []
             self.summary = {}
+            self.summary['Initial ETH quantity'] = start_eth_on_hand
             self.summary['ETH on hand'] = start_eth_on_hand
             self.summary['USD on hand'] = 0
             self.summary['ETH deposited'] = eth_deposited
@@ -32,10 +33,10 @@ class CDP:
             date = datetime.now()
         self.actions.append({
             'id': len(self.actions) + 1,
-            'date': datetime.timestamp(date),
+            'date': int(datetime.timestamp(date)),
             'action': action,
             'eth-usd': eth_usd,
-            'quantity': quantity
+            'quantity': round(quantity, 2)
         })
         self._update_calculations()
 
@@ -93,11 +94,11 @@ class CDP:
 
         self.trades.append({
             'id': len(self.trades) + 1,
-            'date': datetime.timestamp(date),
+            'date': int(datetime.timestamp(date)),
             'side': side,
             'usd': usd,
             'price': price,
-            'eth': eth
+            'eth': round(eth, 2)
         })
         return self._update_calculations(eth)
 
@@ -107,14 +108,21 @@ class CDP:
 
         self.summary.pop('USD available to generate')
         self.summary.pop('ETH available to withdraw')
-        self.summary['ETH on hand'] = round(self.summary['ETH on hand'], 2)
+        self.summary['ETH on hand'] = self.summary['ETH on hand']
         self.summary['ETH price'] = self.price
-        # self.summary['ETH owed'] = self.summary['USD generated'] / self.price
         self.summary['End ETH'] = ((self.summary['ETH deposited'] + self.summary['ETH on hand']) * self.price - self.summary['USD generated']) / self.price
 
-        # self.summary['End ETH'] = self.summary['ETH deposited'] - self.summary['USD generated']/self.price + self.start_eth_on_hand
-        self.summary['% change in ETH price'] = (self.price - self.start_price) / self.start_price
-        self.pct_change_eth_balance = (self.summary['End ETH'] - self.start_eth_on_hand) / self.start_eth_on_hand
+        self.summary['% change in ETH price'] = (self.price - self.start_price) / self.start_price * 100
+        self.summary['% profit in ETH'] = (self.summary['End ETH'] - self.start_eth_on_hand) / self.start_eth_on_hand * 100
+        self.summary['ETH gained / lost'] = self.summary['End ETH'] - self.summary['Initial ETH quantity']
+
+        # Round values to two decimals and add percentages if needed
+        for key, val in self.summary.items():
+            val = round(val, 2)
+            if '%' in key:
+                val = f'{val}%'
+            self.summary[key] = val
+
         if save is True:
             with open(os.getcwd() + '/../src/assets/cdp.json', 'w') as outfile:
                 json.dump(self.__dict__, outfile)
