@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from pathlib import Path
+import os
 
 
 class CDP:
@@ -38,13 +39,12 @@ class CDP:
         })
         self._update_calculations()
 
-    def _update_calculations(self, *args):
+    def _update_calculations(self, eth=None):
         self.summary['Liquidation price'] = round(self.summary['USD generated'] * self.MIN_RATIO / self.summary['ETH deposited'], 2)
         self.summary['USD value'] = round(self.price * self.summary['ETH deposited'], 2)
         self.summary['USD available to generate'] = self.summary['USD value'] / self.MIN_RATIO - self.summary['USD generated']
         self.summary['ETH available to withdraw'] = self.summary['USD available to generate'] / self.price
-        if args:
-            return args
+        return eth
 
     def update_price(self, price):
         self.price = price
@@ -99,8 +99,7 @@ class CDP:
             'price': price,
             'eth': eth
         })
-        self._update_calculations(eth)
-        # return eth
+        return self._update_calculations(eth)
 
     def summarize(self, price=None, save=False):
         if price:
@@ -111,11 +110,13 @@ class CDP:
         self.summary['ETH on hand'] = round(self.summary['ETH on hand'], 2)
         self.summary['ETH price'] = self.price
         # self.summary['ETH owed'] = self.summary['USD generated'] / self.price
-        self.summary['End ETH'] = self.summary['ETH deposited'] - self.summary['USD generated']/self.price + self.start_eth_on_hand
-        # self.summary['% change in ETH price'] = (self.price - self.start_price) / self.start_price
-        # self.pct_change_eth_balance = (self.summary['End ETH'] - self.start_eth_on_hand) / self.start_eth_on_hand
+        self.summary['End ETH'] = ((self.summary['ETH deposited'] + self.summary['ETH on hand']) * self.price - self.summary['USD generated']) / self.price
+
+        # self.summary['End ETH'] = self.summary['ETH deposited'] - self.summary['USD generated']/self.price + self.start_eth_on_hand
+        self.summary['% change in ETH price'] = (self.price - self.start_price) / self.start_price
+        self.pct_change_eth_balance = (self.summary['End ETH'] - self.start_eth_on_hand) / self.start_eth_on_hand
         if save is True:
-            with open('src/assets/cdp.json', 'w') as outfile:
+            with open(os.getcwd() + '/../src/assets/cdp.json', 'w') as outfile:
                 json.dump(self.__dict__, outfile)
 
         return self.summary['End ETH']
