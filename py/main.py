@@ -1,12 +1,24 @@
-from py.cdp import CDP
-
-cdp = CDP(price=208.05, eth_deposited=86.722, start_eth_on_hand=2.447)
-withdrawal_1 = 5488
-cdp.generate(withdrawal_1)
-cdp.trade(side='BUY', usd=withdrawal_1, price=228)
-cdp.deposit(eth=23.03)
-cdp.summarize(price=400, save=True)
+from cdp import CDP
 
 
-if __name__ == '__main__':
-    main()
+starting_eth = 100
+usd_generated = 5000
+
+
+# Create CDP
+cdp = CDP(price=200, start_eth_on_hand=starting_eth)
+
+# Deposit starting eth on hand
+cdp.deposit(eth=starting_eth)
+
+# Generate USD
+cdp.generate(usd_generated)
+
+# Trade USD for ETH and assume we pay a 1% premium on ETH
+eth_purchased = cdp.trade(side='BUY', usd=usd_generated, price=cdp.price*1.01)
+
+# Deposit ETH purchased into CDP
+cdp.deposit(eth=eth_purchased)
+
+# Summarize CDP performance when ETH price hits $300
+cdp.summarize(price=300, save=True)
