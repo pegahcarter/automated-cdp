@@ -1,21 +1,5 @@
 from cdp import CDP
 
-# ------------------------------------------------------------------------------
-# Testing reducing liquidation price
-starting_eth = 5
-price = 100
-
-cdp = CDP(price=price, start_eth_on_hand=starting_eth)
-
-cdp.deposit(eth=starting_eth)
-
-cdp.describe()
-
-cdp.generate(dai=500)
-
-
-
-# ------------------------------------------------------------------------------
 
 starting_eth = 100
 dai_generated = 5000
