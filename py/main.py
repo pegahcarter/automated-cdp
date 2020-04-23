@@ -1,8 +1,24 @@
 from cdp import CDP
 
+# ------------------------------------------------------------------------------
+# Testing reducing liquidation price
+starting_eth = 5
+price = 100
+
+cdp = CDP(price=price, start_eth_on_hand=starting_eth)
+
+cdp.deposit(eth=starting_eth)
+
+cdp.describe()
+
+cdp.generate(dai=500)
+
+
+
+# ------------------------------------------------------------------------------
 
 starting_eth = 100
-usd_generated = 5000
+dai_generated = 5000
 
 
 # Create CDP
@@ -12,10 +28,10 @@ cdp = CDP(price=200, start_eth_on_hand=starting_eth)
 cdp.deposit(eth=starting_eth)
 
 # Generate USD
-cdp.generate(usd_generated)
+cdp.generate(dai_generated)
 
 # Trade USD for ETH and assume we pay a 1% premium on ETH
-eth_purchased = cdp.trade(side='BUY', usd=usd_generated, price=cdp.price*1.01)
+eth_purchased = cdp.trade(side='BUY', dai=dai_generated, price=cdp.price*1.01)
 
 # Deposit ETH purchased into CDP
 cdp.deposit(eth=eth_purchased)
